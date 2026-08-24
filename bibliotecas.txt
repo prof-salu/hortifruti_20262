@@ -1,0 +1,8 @@
+#modulo web
+npx expo install react-dom react-native-web @expo/metro-runtime
+
+#safe area context
+npx expo install react-native-safe-area-context
+
+#Executar o projeto (iniciar servidor)
+npx expo start
