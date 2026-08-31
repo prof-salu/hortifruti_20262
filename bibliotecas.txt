@@ -6,3 +6,6 @@ npx expo install react-native-safe-area-context
 
 #Executar o projeto (iniciar servidor)
 npx expo start
+
+#Instalar as dependências do projeto
+npm install
