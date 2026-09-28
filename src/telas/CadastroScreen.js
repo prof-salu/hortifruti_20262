@@ -3,10 +3,29 @@ import {View, Text, StyleSheet,
 
 import { useState } from 'react';
 
-export default function CadastroScreen(){
+export default function CadastroScreen({navigation}){
     const [nome, setNome] = useState('');
     const [senha, setSenha] = useState('');
     const [email, setEmail] = useState('');
+    const [confirmaSenha, setConfirmaSenha] = useState('');
+    
+    function validarCadastro(){
+        if(nome.trim() === '' || email.trim() === '' ||
+            senha.trim() === '' || confirmaSenha.trim() === ''){
+                alert('Todos os campos devem estar preenchidos!');
+                return;
+        }
+
+        if(senha !== confirmaSenha){
+            alert('A confimação está diferente da senha!!!');
+                return;
+        }
+
+        alert(`Sucesso! Bem-vindo ao hortifruti da Gi, ${nome}.`);
+        //navigation.goBack();
+        navigation.navigate('Login', {email : email, senha : senha})
+
+    }
 
     return(
         <View style={styles.container}>
@@ -14,25 +33,35 @@ export default function CadastroScreen(){
 
             <TextInput 
                 style={styles.entrada}
-                placeholder='Seu nome'/>
+                placeholder='Seu nome'
+                value={nome}
+                onChangeText={setNome}/>
 
             <TextInput 
                 style={styles.entrada}
                 placeholder='Seu e-mail'
                 keyboardType='email-address'
-                autoCapitalize='none'/>
+                autoCapitalize='none'
+                value={email}
+                onChangeText={setEmail}/>
             
             <TextInput 
                 style={styles.entrada}
                 placeholder='Sua senha'
-                secureTextEntry={true}/>
+                secureTextEntry={true}
+                value={senha}
+                onChangeText={setSenha}/>
             
             <TextInput 
                 style={styles.entrada}
                 placeholder='Confirme sua senha'
-                secureTextEntry={true}/>
+                secureTextEntry={true}
+                value={confirmaSenha}
+                onChangeText={setConfirmaSenha}/>
             
-            <TouchableOpacity style={styles.botao}>
+            <TouchableOpacity 
+                style={styles.botao} 
+                onPress={() => validarCadastro()}>
                 <Text style={styles.textoBotao}>Cadastrar</Text>
             </TouchableOpacity>
         </View>

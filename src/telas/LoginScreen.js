@@ -2,10 +2,13 @@ import {View, Text, StyleSheet,
         TouchableOpacity, TextInput, Alert} from 'react-native';
 import { useState } from 'react';
 
-export default function LoginScreen({navigation}){
+export default function LoginScreen({navigation, route}){
     //Estados
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+
+    const emailUser = route.params ? route.params.email : null;
+    const senhaUser = route.params ? route.params.senha : null;
 
     function fazerLogin(){
         
@@ -14,7 +17,10 @@ export default function LoginScreen({navigation}){
         }else{
             if(email === 'teste@email.com' && senha === '1234'){
                 //Logado
-                navigation.navigate('AreaLogada');        
+                navigation.replace('AreaLogada');        
+            }else if(email === emailUser && senha === senhaUser){
+                //Testando o usuario criado em CadastroScreen
+                navigation.replace('AreaLogada');        
             }else{
                 alert('Usuário ou senha incorretos.');
             }
