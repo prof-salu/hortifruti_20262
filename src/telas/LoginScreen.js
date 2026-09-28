@@ -45,8 +45,9 @@ export default function LoginScreen({navigation}){
                 <Text style={styles.textoBotao}>Entrar na loja</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.botaoLink}>
-                <Text style={styles.textoLink}>Anda não tem conta? Cadastre-se</Text>
+            <TouchableOpacity style={styles.botaoLink} 
+                              onPress={() => navigation.navigate('Cadastro')}>
+                <Text style={styles.textoLink}>Ainda não tem conta? Cadastre-se</Text>
             </TouchableOpacity>
         </View>        
     )

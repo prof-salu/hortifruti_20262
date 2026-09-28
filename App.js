@@ -12,6 +12,7 @@ import LoginScreen from './src/telas/LoginScreen';
 import PerfilScreen from './src/telas/PerfilScreen';
 import FeedScreen from './src/telas/FeedScreen';
 import CatalogoScreen from './src/telas/CatalogoScreen';
+import CadastroScreen from './src/telas/CadastroScreen';
 
 //3. Criando os navegadores
 const Stack = createNativeStackNavigator();
@@ -55,6 +56,12 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name='Login' component={LoginScreen} 
                         options={{headerShown: false}}/>
+          
+          <Stack.Screen name='Cadastro' component={CadastroScreen}
+                        options={{
+                          title : 'Voltar',
+                          headerBackTitle: 'Voltar'
+                        }} />
 
           <Stack.Screen name='AreaLogada' component={TabNavegacao}
                         options={{headerShown: false}}/>
