@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     }, 
     card: {
         backgroundColor: '#fff', padding: 12, marginBottom: 16,
-        borderRadius: 8, flexDirection: 'row', elevation: 3
+        borderRadius: 8, flexDirection: 'row', elevation: 3, width: 250
     }, 
     nome: {
         fontSize: 18, fontWeight: 'bold'
