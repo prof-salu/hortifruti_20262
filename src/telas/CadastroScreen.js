@@ -19,18 +19,18 @@ export default function CadastroScreen({navigation}){
     async function buscaCep(cepDigitado){
         setCep(cepDigitado);
         
-        if(cep.length === 8){
+        if(cepDigitado.length === 8){
             setCepCarregando(true);
 
             try{
             //const resposta_alternativa = await fetch('https://viacep.com.br/ws/' + cep + '/json/');
             
-            const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+            const resposta = await fetch(`https://viacep.com.br/ws/${cepDigitado}/json/`);
 
             const dados = await resposta.json();
 
             console.log(dados);
-            setRua(dados.logradouro)
+            
             }catch(erro){
                 console.error(erro);
             }finally{
