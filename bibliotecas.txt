@@ -9,3 +9,6 @@ npx expo start
 
 #Instalar as dependências do projeto
 npm install
+
+#AsyncStorage
+npx expo install @react-native-async-storage/async-storage

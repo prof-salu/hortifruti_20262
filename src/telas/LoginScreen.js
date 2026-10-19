@@ -1,30 +1,40 @@
 import {View, Text, StyleSheet, 
         TouchableOpacity, TextInput, Alert} from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function LoginScreen({navigation, route}){
+import { salvarSessaoUsuario, 
+         carregarSessaoUsuario } from '../servicos/AsyncStorageServico';
+
+export default function LoginScreen({navigation, }){
     //Estados
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    const emailUser = route.params ? route.params.email : null;
-    const senhaUser = route.params ? route.params.senha : null;
+    //Carregando o ultimo e-mail salvo
+    useEffect(() => {
+        buscarUltimoEmail();
+    }, []);
 
-    function fazerLogin(){
-        
+    async function buscarUltimoEmail(){
+        const emailSalvo = await carregarSessaoUsuario();
+        if(emailSalvo){
+            setEmail(emailSalvo);
+        }
+        console.log('E-mail carregado.');
+    }
+
+    async function fazerLogin(){        
         if(email.trim() === '' || senha.trim() === ''){
             alert('Preencha sem e-mail e senha!');
-        }else{
-            if(email === 'teste@email.com' && senha === '1234'){
-                //Logado
-                navigation.replace('AreaLogada');        
-            }else if(email === emailUser && senha === senhaUser){
-                //Testando o usuario criado em CadastroScreen
-                navigation.replace('AreaLogada');        
-            }else{
-                alert('Usuário ou senha incorretos.');
-            }
-        }        
+        }
+        
+        try{
+            await salvarSessaoUsuario(email);
+            alert('Login efetuado com sucesso');
+            navigation.replace('AreaLogada');
+        }catch(error){
+            alert('Não foi possivel salvar os dados da sessão!');
+        }
     }
 
     return(

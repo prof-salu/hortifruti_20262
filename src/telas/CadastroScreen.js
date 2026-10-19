@@ -29,7 +29,19 @@ export default function CadastroScreen({navigation}){
 
             const dados = await resposta.json();
 
-            console.log(dados);
+            //console.log(dados);
+
+            if(dados){
+                setRua(dados.logradouro);
+                setBairro(dados.bairro);
+                setCidade(dados.localidade);
+                setUF(dados.uf);
+            }else{
+                setRua('');
+                setBairro('');
+                setCidade('');
+                setUF('');
+            }         
             
             }catch(erro){
                 console.error(erro);
@@ -95,18 +107,22 @@ export default function CadastroScreen({navigation}){
             
             {cepCarregando && <ActivityIndicator size='large' color='#27AE60'/> }
 
-            <TextInput 
-                style={[styles.entrada, styles.entradaDesativada]} placeholder='Rua' value={rua} editable={false}/>
-            
-            <TextInput
-                style={[styles.entrada, styles.entradaDesativada]} placeholder='Bairro' value={bairro} editable={false}/>
-            
-            <TextInput 
-                style={[styles.entrada, styles.entradaDesativada]} placeholder='Cidade' value={cidade} editable={false}/>
-            
-            <TextInput 
-                style={[styles.entrada, styles.entradaDesativada]} placeholder='UF' value={uf} editable={false}/>
 
+            {rua && 
+            (<View>
+                <TextInput 
+                    style={[styles.entrada, styles.entradaDesativada]} placeholder='Rua' value={rua} editable={false}/>
+                
+                <TextInput
+                    style={[styles.entrada, styles.entradaDesativada]} placeholder='Bairro' value={bairro} editable={false}/>
+                
+                <TextInput 
+                    style={[styles.entrada, styles.entradaDesativada]} placeholder='Cidade' value={cidade} editable={false}/>
+                
+                <TextInput 
+                    style={[styles.entrada, styles.entradaDesativada]} placeholder='UF' value={uf} editable={false}/>
+            </View>)
+}
             <TouchableOpacity 
                 style={styles.botao} 
                 onPress={() => validarCadastro()}>
