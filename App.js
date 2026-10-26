@@ -13,6 +13,7 @@ import PerfilScreen from './src/telas/PerfilScreen';
 import FeedScreen from './src/telas/FeedScreen';
 import CatalogoScreen from './src/telas/CatalogoScreen';
 import CadastroScreen from './src/telas/CadastroScreen';
+import ListaComprasScreen from './src/telas/ListaComprasScreen';
 
 //3. Criando os navegadores
 const Stack = createNativeStackNavigator();
@@ -34,6 +35,8 @@ function TabNavegacao(){
           nomeIcone = 'megaphone';
         }else if(route.name === 'Perfil'){
           nomeIcone = 'person';
+        }else if(route.name === 'Minha Lista'){
+          nomeIcone = 'clipboard';
         }
 
         return <Ionicons name={nomeIcone} color={color} size={size} />
@@ -41,8 +44,9 @@ function TabNavegacao(){
     })}>
       
       <Tab.Screen name='Loja' component={CatalogoScreen}/>
+      <Tab.Screen name='Minha Lista' component={ListaComprasScreen}/>
       <Tab.Screen name='Feed' component={FeedScreen}/>
-      <Tab.Screen name='Perfil' component={PerfilScreen}/>
+      <Tab.Screen name='Perfil' component={PerfilScreen}/>      
     </Tab.Navigator>
   )
 }
