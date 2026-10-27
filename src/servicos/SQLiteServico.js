@@ -17,7 +17,7 @@ export async function criarTabela(){
             CREATE TABLE IF NOT EXISTS lista(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 produto TEXT NOT NULL,
-                preco REAL NOT NULL,
+                quantidade REAL NOT NULL,
                 unidade TEXT NOT NULL);    
         `);
         console.log('Banco inicializado com sucesso!')
@@ -28,22 +28,22 @@ export async function criarTabela(){
 }
 
 //3. CREATE: Adiciona produto
-export async function adicionarProduto(nome, preco, unidade) {
+export async function adicionarProduto(nome, quantidade, unidade) {
     try{
         const db = await abrirBanco();
         db.runAsync(
-            'INSERT INTO lista (produto, preco, unidade) VALUES (?, ?, ?);',
-            [nome, preco, unidade]);        
+            'INSERT INTO lista (produto, quantidade, unidade) VALUES (?, ?, ?);',
+            [nome, quantidade, unidade]);        
     }catch(error){
         console.log('Falha ao adicionar item: ', error);
     }
 }
-//4. READ: Busca produto
+//4. READ: Busca produtos
 export async function carregarLista(){
     try{
         const db = await abrirBanco();
 
-        const itens = db.getAllSync('SELECT * FROM lista;');
+        const itens = db.getAllAsync('SELECT * FROM lista;');
         return itens;
     }catch(error){
         console.log('Erro ao carregar lista: ' + error);
@@ -51,13 +51,13 @@ export async function carregarLista(){
     }
 }
 //5. UPDATE: Atualiza produto
-export async function atualizarProduto(produto, preco, unidade, id){
+export async function atualizarProduto(produto, quantidade, unidade, id){
     try{
         const db = await abrirBanco();
 
         db.runAsync(
-            'UPDATE lista SET produto=?, preco=?, unidade=? WHERE id=?;',
-            [produto, preco, unidade, id]
+            'UPDATE lista SET produto=?, quantidade=?, unidade=? WHERE id=?;',
+            [produto, quantidade, unidade, id]
         );
         console.log('Produto alterado com sucesso!');
     }catch(error){

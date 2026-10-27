@@ -20,6 +20,10 @@ export default function ListaComprasScreen(){
 
     async function prepararBanco() {
         await criarTabela();
+        atualizaLista();
+    }
+
+    async function atualizaLista() {
         const lista = await carregarLista();
         setProdutos(lista);
     }
@@ -35,9 +39,10 @@ export default function ListaComprasScreen(){
                 //UPDATE
             }else{
                 //INSERT
-                await salvarProduto(nome, quantidade, unidade);
+                await adicionarProduto(nome, quantidade, unidade);
                 alert('Produto gravado com sucesso!');
             }
+            atualizaLista();
         }catch(error){
             alert('Falha ao gravar: ' + error);
         }finally{
@@ -83,8 +88,12 @@ export default function ListaComprasScreen(){
 
             <FlatList 
                 data={produtos}
-                keyExtractor={item => item.id}
-                renderItem={({item}) => <Text>{item.nome}</Text>}
+                keyExtractor={item => String(item.id)}
+                renderItem={({item}) => // Adicionei um estilo básico para você conseguir visualizar melhor os itens
+                    <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#eee' }}>
+                        <Text style={{ fontSize: 16 }}>{item.produto}</Text>
+                        <Text style={{ color: '#666' }}>{item.quantidade} {item.unidade}</Text>
+                    </View>}
             />
         </View>
     );
